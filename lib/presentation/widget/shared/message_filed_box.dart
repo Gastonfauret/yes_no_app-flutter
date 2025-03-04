@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MessageFiledBox extends StatelessWidget {
-  const MessageFiledBox({super.key});
+  final ValueChanged<String> onValue;
+
+  const MessageFiledBox({super.key, required this.onValue});
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +32,8 @@ class MessageFiledBox extends StatelessWidget {
             //Cuando se presiona el botón de envío.
             final textValue =
                 textController.text; //Obtiene el texto del campo de texto.
-            print('Button: $textValue');
             textController.clear(); // Limpia el campo de texto.
+            onValue(textValue);
           },
         ));
 
@@ -43,11 +45,10 @@ class MessageFiledBox extends StatelessWidget {
       controller: textController, //Controlador del campo de texto.
       decoration: inputDecoration, //Decoración del campo de texto.
       onFieldSubmitted: (value) {
-        //Cuando se envía el texto.
-        print('Submit value $value');
         textController.clear(); //Limpia el campo de texto.
         focusNode
             .requestFocus(); //Mantiene el foco en el campo de texto (Mantiene el teclado abierto).
+        onValue(value);
       },
     );
   }

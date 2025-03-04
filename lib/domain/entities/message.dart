@@ -1,4 +1,3 @@
-
 enum FromWho { me, other }
 
 class Message {
